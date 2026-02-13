@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione Account</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f7f9; font-family: 'Segoe UI', sans-serif; }
+        .card { background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 350px; }
+        input { padding: 12px; border-radius: 5px; border: 1px solid #ddd; width: 100%; box-sizing: border-box; margin-bottom: 20px; }
+        button { width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Crea Account</h2>
+        <p>Inserisci la tua email per iniziare la configurazione passwordless.</p>
+        <form method="POST">
+            <input type="email" name="email" placeholder="nome@esempio.it" required>
+            <button type="submit">Genera QR Code</button>
+        </form>
+    </div>
+</body>
+</html>

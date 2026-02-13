@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Accesso di Emergenza</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        .container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #dc3545; border-radius: 10px; background-color: #fffafb;}
+        input { padding: 10px; width: 80%; margin-bottom: 10px; font-family: monospace; letter-spacing: 2px; }
+        button { padding: 10px 20px; background-color: #dc3545; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold;}
+        .back-link { display: block; margin-top: 15px; font-size: 0.9em; color: #6c757d; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #dc3545;">Accesso di Emergenza</h2>
+        <p>Inserisci uno dei tuoi <strong>codici di recupero a 8 caratteri</strong>. Ricorda che ogni codice può essere usato una sola volta.</p>
+        <form method="POST">
+            <input type="text" name="token" placeholder="xxxxxxxx" required maxlength="8">
+            <br>
+            <button type="submit">Verifica e Accedi</button>
+        </form>
+        
+        <a href="/login" class="back-link">Torna al login normale</a>
+    </div>
+</body>
+</html>

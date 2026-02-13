@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Codici di Recupero</title>
+    <style>
+        /* Stile Generale (preso dal tuo esempio Light) */
+        body { 
+            font-family: sans-serif; 
+            text-align: center; 
+            margin-top: 50px; 
+            color: #333; /* Colore testo scuro standard */
+        }
+
+        /* Contenitore principale */
+        .container { 
+            max-width: 400px; 
+            margin: auto; 
+            padding: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 10px; 
+            background-color: #fff;
+        }
+
+        /* Stile del box per ogni singolo codice */
+        .code-box { 
+            background: #f8f9fa; /* Grigio chiarissimo */
+            border: 1px solid #ddd; /* Bordo leggero */
+            padding: 10px; 
+            margin: 8px 0; 
+            border-radius: 5px; 
+            font-family: monospace; /* Font monospaziato per i numeri */
+            font-size: 1.1em;
+            letter-spacing: 2px; /* Spaziatura per leggibilità */
+            color: #333; 
+        }
+
+        /* Bottone (Stile Blue del tuo login) */
+        .btn { 
+            display: inline-block;
+            padding: 10px 20px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer; 
+            text-decoration: none; /* Rimuove sottolineatura link */
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3; /* Effetto hover leggermente più scuro */
+        }
+
+        /* Testo di avviso */
+        .warning { 
+            color: #dc3545; /* Rosso standard leggibile su bianco */
+            font-size: 0.9rem; 
+            margin-bottom: 20px; 
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Codici di Emergenza</h2>
+        
+        <p class="warning">
+            <strong>Importante:</strong> Salva questi codici in un luogo sicuro.<br>
+            Se perdi il telefono, sono l'unico modo per entrare.
+        </p>
+        
+        {% for code in codes %}
+            <div class="code-box">{{ code }}</div>
+        {% endfor %}
+        
+        <a href="/dashboard" class="btn">Ho salvato i codici, Procedi</a>
+    </div>
+</body>
+</html>

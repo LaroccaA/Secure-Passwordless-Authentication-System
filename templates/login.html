@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Passwordless</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        .container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        input { padding: 10px; width: 80%; margin-bottom: 10px; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px;}
+        .recovery-link { display: block; margin-top: 15px; font-size: 0.9em; color: #007bff; text-decoration: none; }
+        .recovery-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <p>Inserisci il codice temporaneo a 6 cifre della tua app:</p>
+        <form method="POST">
+            <input type="text" name="token" placeholder="000000" required maxlength="6">
+            <br>
+            <button type="submit">Accedi</button>
+        </form>
+        
+        <a href="/recovery" class="recovery-link">Hai perso il telefono? Usa un codice di emergenza</a>
+    </div>
+</body>
+</html>
