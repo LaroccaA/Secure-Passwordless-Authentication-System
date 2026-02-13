@@ -1,7 +1,7 @@
 
 # Secure Passwordless Authentication System
 
-Questo progetto è un **Proof of Concept (PoC)** di un sistema di autenticazione moderno.
+Questo progetto è un **Proof of Concept** di un sistema di autenticazione moderno.
 L'obiettivo principale è simulare un ambiente in cui le password statiche sono sostituite da protocolli crittografici dinamici (TOTP) e dove la protezione dei dati sensibili è garantita nativamente tramite cifratura.
 
 
