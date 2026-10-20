@@ -250,12 +250,13 @@ This is a proof of concept, not a production authentication system. The main sim
 
 ## Roadmap
 
+The items below are deliberate next steps, not missing pieces of the current PoC. Completed work is documented in the sections above.
+
 - [ ] Add WebAuthn / passkeys as a second passwordless factor.
 - [ ] Replace salted SHA-256 with Argon2id and increase recovery-code entropy.
 - [ ] Move persistence to SQLite or PostgreSQL with migrations and locking.
 - [ ] Add CSRF protection and security headers.
 - [ ] Add per-IP and per-account rate limiting with expiry.
-- [x] Add `pytest` tests and a GitHub Actions workflow.
 
 ## What I learned
 
