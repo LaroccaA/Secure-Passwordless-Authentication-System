@@ -1,2 +1,40 @@
+# Secrets and local data
 .env
+.env.*
+!.env.example
+database.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 venv/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# AI / agent tooling
+AGENTS.md
+CLAUDE.md
+.opencode/
+opencode.json
+.cursor/
+.cursorrules
+.github/copilot-instructions.md
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Logs
+*.log

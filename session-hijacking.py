@@ -30,7 +30,7 @@ def session_hijacking_attack(session_cookie_value):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Uso: python attacco_sessione.py <VALORE_COOKIE_SESSION>")
+        print("Uso: python3 session-hijacking.py <VALORE_COOKIE_SESSION>")
     else:
         cookie = sys.argv[1]
         session_hijacking_attack(cookie)

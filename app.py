@@ -18,7 +18,8 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(24) # Genera 24 byte casuali ogni volta che il server parte
 
-# Previene contro attacchi XSS e CSRF
+# Mitiga il furto di sessione: il cookie non è leggibile da JavaScript
+# e non viene inviato nelle richieste cross-site.
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax',
@@ -26,6 +27,7 @@ app.config.update(
 app.permanent_session_lifetime = timedelta(minutes=5) #Durata massima della sessione
 
 DB = "database.json"
+MAX_FAILED_ATTEMPTS = 5
 
 load_dotenv()                                                           #   In questa parte sono andato a caricare da un file .env la chiave che Fernet
 env_key = os.getenv('DB_SECRET_KEY')                                    #   andrà ad utilizzare per crittografare le informazioni che vengono salvate
@@ -103,6 +105,11 @@ def setup():
 @app.route('/verify-setup', methods=['POST'])
 def verify_setup():
     global db
+    if db["is_setup"]:
+        return redirect(url_for('login'))
+    if not db.get("secret"):
+        return redirect(url_for('register'))
+
     token = request.form.get('token')
     totp = pyotp.TOTP(db["secret"])
     
@@ -144,12 +151,8 @@ def login():
 
     ##################################################################################
     # Protezione Brute Force
-    if db.get("failed_attempts", 0) >= 5:
-        return f"""
-    <div style='text-align:center; margin-top:50px; font-family:sans-serif;'>
-        <h1>Hai effettuato troppi tentativi contatta l'assistenza</h1>
-    </div>
-    """, 403
+    if db.get("failed_attempts", 0) >= MAX_FAILED_ATTEMPTS:
+        return render_template('locked.html'), 403
     #################################################################################
 
     if request.method == 'POST':
@@ -178,7 +181,7 @@ def login():
             data.save_db(DB,db,cipher_suite)
             return f"""
             <div style='text-align:center; margin-top:50px; font-family:sans-serif;'>
-            <h1>Codice Authenticator errato. Tentativi rimasti: {5 - db['failed_attempts']}</h1>
+            <h1>Codice Authenticator errato. Tentativi rimasti: {MAX_FAILED_ATTEMPTS - db['failed_attempts']}</h1>
             <a href='/logout' style ='color:red;'>Riprova</a>
             </div>
             """, 401
@@ -192,12 +195,8 @@ def recovery():
         return redirect(url_for('register'))
     
     # Protezione Brute Force
-    if db.get("failed_attempts", 0) >= 5:
-        return f"""
-    <div style='text-align:center; margin-top:50px; font-family:sans-serif;'>
-        <h1>Hai effettuato troppi tentativi contatta l'assistenza</h1>
-    </div>
-    """, 403
+    if db.get("failed_attempts", 0) >= MAX_FAILED_ATTEMPTS:
+        return render_template('locked.html'), 403
 
     if request.method == 'POST':
         token = request.form.get('token')
@@ -224,7 +223,7 @@ def recovery():
             data.save_db(DB,db,cipher_suite)
             return f"""
             <div style='text-align:center; margin-top:50px; font-family:sans-serif;'>
-            <h1>Codice di Sicurezza errato. Tentativi rimasti: {5 - db['failed_attempts']}</h1>
+            <h1>Codice di Sicurezza errato. Tentativi rimasti: {MAX_FAILED_ATTEMPTS - db['failed_attempts']}</h1>
             <a href='/logout' style ='color:red;'>Riprova</a>
             </div>
             """, 401
@@ -235,13 +234,7 @@ def recovery():
 def dashboard():
     if 'user' not in session:
         return redirect(url_for('login'))
-    return f"""
-    <div style='text-align:center; margin-top:50px; font-family:sans-serif;'>
-        <h1>Benvenuto nella tua area protetta!</h1>
-        <p>Accesso effettuato come: {session['user']}</p>
-        <a href='/logout' style='color:red;'>Logout</a>
-    </div>
-    """
+    return render_template('dashboard.html', user=session['user'])
 
 @app.route('/logout')
 def logout():
@@ -253,4 +246,5 @@ def make_session_permanent():
     session.permanent = True
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug)

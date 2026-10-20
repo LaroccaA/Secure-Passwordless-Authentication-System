@@ -1,7 +1,6 @@
 import requests
 import concurrent.futures
 import random
-import time
 
 TARGET_URL = "http://127.0.0.1:5000/login"
 MAX_WORKERS = 50       # Numero di thread
